@@ -88,7 +88,7 @@ function fpl_render_catalogue(array $catalog, array $installed): void {
 function fpl_render_installed(array $catalog, array $installed): void {
     $year = $catalog['year'] ?? fpl_selected_year();
     $updates = get_site_transient('update_plugins');
-    echo '<div class="fpl-section-heading"><div><h2>Fusion ' . esc_html($year) . ' on this site</h2><p>WordPress updates continue to work normally. Fusion approvals offer an additional manual installation option.</p></div>';
+    echo '<div class="fpl-section-heading"><div><h2>Updates available · Fusion ' . esc_html($year) . '</h2><p>WordPress updates continue to work normally. Fusion approvals offer an additional manual installation option.</p></div>';
     fpl_action_form('refresh', 'Check Fusion approvals');
     echo '</div><div class="fpl-table-scroll"><table class="widefat striped"><thead><tr><th scope="col">Plugin</th><th scope="col">Installed</th><th scope="col">Fusion approved</th><th scope="col">WordPress update</th><th scope="col">Action</th></tr></thead><tbody>';
     $count = 0;
@@ -96,14 +96,16 @@ function fpl_render_installed(array $catalog, array $installed): void {
         if (!is_array($entry)) { continue; }
         $match = fpl_installed_plugin($entry, $installed);
         if (!$match) { continue; }
-        $count++;
         $release = fpl_approved_release($year, $entry['id']);
         $native = is_object($updates) ? ($updates->response[$match['file']] ?? null) : null;
+        $fusion_update = $release && version_compare((string) ($match['data']['Version'] ?? '0'), $release['version'], '<');
+        if (!$fusion_update && !is_object($native)) { continue; }
+        $count++;
         echo '<tr><th scope="row">' . esc_html($entry['name']) . '</th><td>' . esc_html($match['data']['Version'] ?? '—') . '</td><td>' . esc_html($release['version'] ?? '—') . '</td><td>' . esc_html(is_object($native) ? 'Available ' . ($native->new_version ?? '') : 'No update shown') . '</td><td>';
         fpl_render_release_action($entry, $year, $installed);
         echo '</td></tr>';
     }
-    if (!$count) { echo '<tr><td colspan="5">No plugins from this catalog are installed on this site.</td></tr>'; }
+    if (!$count) { echo '<tr><td colspan="5">No updates are available for plugins in this catalog.</td></tr>'; }
     echo '</tbody></table></div>';
 }
 

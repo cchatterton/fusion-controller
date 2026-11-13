@@ -33,4 +33,11 @@ foreach (['Fusion Plugins', 'Updates available', 'Catalogue', 'Settings', 'Catal
 if (substr_count($html, 'class="fpl-card"') !== 16 || strpos($html, 'Techn /') !== false || strpos($html, 'AlphaSys') !== false) {
     throw new RuntimeException('Unexpected catalog or branding output.');
 }
+$_GET['tab'] = 'installed';
+ob_start();
+fpl_render_admin();
+$html = ob_get_clean();
+if (strpos($html, 'No updates are available for plugins in this catalog.') === false) {
+    throw new RuntimeException('The updates tab did not show its empty state.');
+}
 echo "Admin smoke test passed.\n";
