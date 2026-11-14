@@ -2,21 +2,146 @@
   "schema": 1,
   "year": "26",
   "plugins": [
-    {"id":"userway-accessibility-widget","name":"Accessibility by UserWay","role":"Accessibility","source":"wordpress.org","slug":"userway-accessibility-widget"},
-    {"id":"admin-columns-pro","name":"Admin Columns Pro","role":"Admin columns","source":"vendor"},
-    {"id":"advanced-custom-fields-pro","name":"Advanced Custom Fields PRO","role":"Custom fields","source":"vendor"},
-    {"id":"cms-tree-page-view","name":"CMS Tree Page View","role":"Page tree","source":"wordpress.org","slug":"cms-tree-page-view"},
-    {"id":"disable-comments","name":"Disable Comments","role":"Comments","source":"wordpress.org","slug":"disable-comments"},
-    {"id":"gravityforms","name":"Gravity Forms","role":"Forms","source":"vendor"},
-    {"id":"independent-analytics-pro","name":"Independent Analytics Pro","role":"Analytics","source":"vendor"},
-    {"id":"redirection","name":"Redirection","role":"Redirects","source":"wordpress.org","slug":"redirection"},
-    {"id":"relevanssi-premium","name":"Relevanssi Premium","role":"Search","source":"vendor"},
-    {"id":"smtp2go","name":"SMTP2GO - Email Made Easy","role":"Email delivery","source":"wordpress.org","slug":"smtp2go"},
-    {"id":"stream","name":"Stream - Activity Log & Audit Trail","role":"Activity log","source":"wordpress.org","slug":"stream"},
-    {"id":"transients-manager","name":"Transients Manager","role":"Transients","source":"wordpress.org","slug":"transients-manager"},
-    {"id":"wordfence","name":"Wordfence Security","role":"Security","source":"wordpress.org","slug":"wordfence"},
-    {"id":"wp-crontrol","name":"WP Crontrol","role":"Cron","source":"wordpress.org","slug":"wp-crontrol"},
-    {"id":"wp-migrate","name":"WP Migrate","role":"Migration","source":"vendor"},
-    {"id":"wpide","name":"WPIDE - File Manager & Code Editor","role":"File editor","source":"wordpress.org","slug":"wpide"}
+    {
+      "id": "userway-accessibility-widget",
+      "name": "Accessibility by UserWay",
+      "role": "Accessibility",
+      "source": "wordpress.org",
+      "slug": "userway-accessibility-widget",
+      "description": "Adds the UserWay accessibility widget and site accessibility tools.",
+      "requires": "4.7"
+    },
+    {
+      "id": "admin-columns-pro",
+      "name": "Admin Columns Pro",
+      "role": "Admin columns",
+      "source": "vendor",
+      "description": "Customise WordPress admin columns and manage content from list screens."
+    },
+    {
+      "id": "advanced-custom-fields-pro",
+      "name": "Advanced Custom Fields PRO",
+      "role": "Custom fields",
+      "source": "vendor",
+      "description": "Build structured fields and flexible content layouts."
+    },
+    {
+      "id": "cms-tree-page-view",
+      "name": "CMS Tree Page View",
+      "role": "Page tree",
+      "source": "wordpress.org",
+      "slug": "cms-tree-page-view",
+      "description": "Browse and reorganise pages in a drag-and-drop tree.",
+      "requires": "6.6",
+      "requires_php": "7.4"
+    },
+    {
+      "id": "disable-comments",
+      "name": "Disable Comments",
+      "role": "Comments",
+      "source": "wordpress.org",
+      "slug": "disable-comments",
+      "description": "Disable comments across the site or on selected content types.",
+      "requires": "5.0",
+      "requires_php": "7.0"
+    },
+    {
+      "id": "gravityforms",
+      "name": "Gravity Forms",
+      "role": "Forms",
+      "source": "vendor",
+      "description": "Create forms and manage submissions."
+    },
+    {
+      "id": "independent-analytics-pro",
+      "name": "Independent Analytics Pro",
+      "role": "Analytics",
+      "source": "vendor",
+      "description": "View site analytics and reporting inside WordPress."
+    },
+    {
+      "id": "redirection",
+      "name": "Redirection",
+      "role": "Redirects",
+      "source": "wordpress.org",
+      "slug": "redirection",
+      "description": "Manage URL redirects and monitor 404 errors.",
+      "requires": "6.7",
+      "requires_php": "7.4"
+    },
+    {
+      "id": "relevanssi-premium",
+      "name": "Relevanssi Premium",
+      "role": "Search",
+      "source": "vendor",
+      "description": "Improve site search with premium indexing and search controls."
+    },
+    {
+      "id": "smtp2go",
+      "name": "SMTP2GO - Email Made Easy",
+      "role": "Email delivery",
+      "source": "wordpress.org",
+      "slug": "smtp2go",
+      "description": "Send site email through SMTP2GO.",
+      "requires": "6.2",
+      "requires_php": "7.4"
+    },
+    {
+      "id": "stream",
+      "name": "Stream - Activity Log & Audit Trail",
+      "role": "Activity log",
+      "source": "wordpress.org",
+      "slug": "stream",
+      "description": "Record WordPress activity in an audit log.",
+      "requires": "4.6",
+      "requires_php": "7.4"
+    },
+    {
+      "id": "transients-manager",
+      "name": "Transients Manager",
+      "role": "Transients",
+      "source": "wordpress.org",
+      "slug": "transients-manager",
+      "description": "Inspect, edit and delete WordPress transients.",
+      "requires": "5.3",
+      "requires_php": "5.6.20"
+    },
+    {
+      "id": "wordfence",
+      "name": "Wordfence Security",
+      "role": "Security",
+      "source": "wordpress.org",
+      "slug": "wordfence",
+      "description": "Provide firewall, malware scan and login security tools.",
+      "requires": "4.7",
+      "requires_php": "7.0"
+    },
+    {
+      "id": "wp-crontrol",
+      "name": "WP Crontrol",
+      "role": "Cron",
+      "source": "wordpress.org",
+      "slug": "wp-crontrol",
+      "description": "Inspect and manage scheduled WordPress cron events.",
+      "requires": "6.6",
+      "requires_php": "7.4"
+    },
+    {
+      "id": "wp-migrate",
+      "name": "WP Migrate",
+      "role": "Migration",
+      "source": "vendor",
+      "description": "Move WordPress site data between environments."
+    },
+    {
+      "id": "wpide",
+      "name": "WPIDE - File Manager & Code Editor",
+      "role": "File editor",
+      "source": "wordpress.org",
+      "slug": "wpide",
+      "description": "Browse and edit WordPress files in the admin interface.",
+      "requires": "5.9",
+      "requires_php": "7.4.0"
+    }
   ]
 }

@@ -3,15 +3,15 @@ Contributors:
 Tags: plugins, catalogue, updates
 Requires at least: 6.5
 Requires PHP: 7.4
-Stable tag: 0.1.1
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Curated annual plugin catalogs with optional approved mirror installs.
+Curated annual plugin catalogs with convenient updates from the Fusion mirror.
 
 == Description ==
 
-Fusion Plugins offers a selected plugin for each function, organized in annual catalogs. It provides an optional path to install approved mirrored packages. Native WordPress plugin updates remain unchanged.
+Fusion Plugins offers a selected plugin for each function, organized in annual catalogs. Check the mirror, select available updates and install them from verified GitHub release ZIPs. Native WordPress plugin updates remain unchanged.
 
 == Installation ==
 
@@ -28,6 +28,11 @@ No. Native WordPress plugin update checks continue normally.
 No. Premium entries are cataloged, but their ZIPs require an authorised source and licence before mirroring.
 
 == Changelog ==
+
+= 0.2.0 =
+
+* Add mirror checks, selected updates, grouped catalog cards and a catalog picker.
+* Remove the Settings and separate Catalogs tabs.
 
 = 0.1.1 =
 

@@ -36,14 +36,17 @@ function fpl_selected_year(): string {
     return isset(fpl_catalogs()[$saved]) ? $saved : $current;
 }
 
-function fpl_approved(): array {
-    $stored = is_multisite() ? get_site_option('fpl_approved', []) : get_option('fpl_approved', []);
+function fpl_mirror(): array {
+    $stored = is_multisite() ? get_site_option('fpl_mirror', []) : get_option('fpl_mirror', []);
     return is_array($stored) ? $stored : [];
 }
 
-function fpl_approved_release(string $year, string $id): array {
-    $entry = fpl_approved()['catalogs'][$year][$id] ?? [];
-    return is_array($entry) ? $entry : [];
+function fpl_latest_release(array $entry): array {
+    $slug = (string) ($entry['slug'] ?? '');
+    $package = fpl_mirror()['packages'][$slug] ?? [];
+    $version = (string) ($package['latest'] ?? '');
+    $release = $package['versions'][$version] ?? [];
+    return is_array($release) && $version !== '' ? $release + ['version' => $version] : [];
 }
 
 function fpl_plugin_by_id(array $catalog, string $id): array {

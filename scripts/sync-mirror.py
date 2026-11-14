@@ -41,7 +41,7 @@ def plugin_information(slug):
     parsed = urlparse(download)
     if parsed.scheme != "https" or parsed.hostname != "downloads.wordpress.org" or not parsed.path.startswith("/plugin/" + slug + "."):
         raise ValueError(f"WordPress.org returned an unexpected download URL for {slug}")
-    return data["version"], download
+    return data["version"], download, data.get("requires") or "", data.get("requires_php") or ""
 
 
 def download_and_verify(slug, url, destination):
@@ -98,11 +98,16 @@ def selected_plugins(catalog_id, slug_filter, include_supported):
 
 
 def sync(slug, index):
-    version, url = plugin_information(slug)
+    version, url, requires, requires_php = plugin_information(slug)
     existing = index["packages"].get(slug, {}).get("versions", {}).get(version)
     if existing:
-        print(f"Unchanged: {slug} {version}")
-        return False
+        changed = False
+        for key, value in (("requires", requires), ("requires_php", requires_php)):
+            if value and existing.get(key) != value:
+                existing[key] = value
+                changed = True
+        print(f"Metadata refreshed: {slug} {version}" if changed else f"Unchanged: {slug} {version}")
+        return changed
     tag = f"mirror-{slug}-v{version}"
     asset = f"{slug}-{version}.zip"
     with tempfile.TemporaryDirectory(prefix="fusion-mirror-") as temporary:
@@ -120,6 +125,10 @@ def sync(slug, index):
             run("gh", "release", "create", tag, str(package), "--repo", OWNER_REPO, "--latest=false", "--title", f"{slug} {version}", "--notes", f"Verified WordPress.org package for {slug} {version}. SHA-256: {sha256}")
     record = index["packages"].setdefault(slug, {"latest": version, "versions": {}})
     record["versions"][version] = {"sha256": sha256, "url": f"https://github.com/{OWNER_REPO}/releases/download/{tag}/{asset}"}
+    if requires:
+        record["versions"][version]["requires"] = requires
+    if requires_php:
+        record["versions"][version]["requires_php"] = requires_php
     record["latest"] = version
     print(f"Mirrored: {slug} {version}")
     return True

@@ -53,6 +53,12 @@ class MirrorTests(unittest.TestCase):
             with patch.object(sync, "urlopen", return_value=DownloadResponse(archive(["example/plugin.php"]))):
                 self.assertEqual(64, len(sync.download_and_verify("example", "https://downloads.wordpress.org/plugin/example.1.0.zip", target)))
 
+    def test_existing_release_receives_requirement_metadata(self):
+        index = {"packages": {"example": {"latest": "1.0", "versions": {"1.0": {"sha256": "a" * 64, "url": "https://example.test/package.zip"}}}}}
+        with patch.object(sync, "plugin_information", return_value=("1.0", "https://downloads.wordpress.org/plugin/example.1.0.zip", "6.5", "7.4")):
+            self.assertTrue(sync.sync("example", index))
+        self.assertEqual("7.4", index["packages"]["example"]["versions"]["1.0"]["requires_php"])
+
 
 if __name__ == "__main__":
     unittest.main()
