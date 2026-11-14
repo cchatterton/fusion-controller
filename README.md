@@ -24,7 +24,7 @@ The curated decision is which plugin fills each function. The latest verified mi
 
 Premium plugins need an authorised vendor adapter and a verified package identity before they can enter the mirror. Catalog membership does not grant redistribution rights.
 
-Fusion 26 also lists the official Gravity Forms Advanced Post Creation, Salesforce, Stripe, Survey and Webhooks add-ons. Their official slugs are recorded so installed copies can be identified. They remain licensed entries until an authorised package source and private distribution path are configured. Do not publish their ZIPs as public GitHub release assets. Store any vendor credential in GitHub Actions secrets, and provide client sites with authenticated access to the private package store.
+All premium entries follow the same path, including Gravity Forms and its Advanced Post Creation, Salesforce, Stripe, Survey and Webhooks add-ons, Independent Analytics Pro, and WP Migrate. Their authorised vendor packages and redistribution terms must be established before mirroring. Store download credentials in GitHub Actions secrets, verify each ZIP and its plugin identity, then publish it through the Fusion mirror where the terms permit. A private package store is needed only for packages that should not be publicly downloadable. Until a source is configured, these plugins remain licensed catalogue entries with a manual ZIP upload action.
 
 ## Release
 
