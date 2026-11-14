@@ -28,9 +28,9 @@ class WP_Error { public $code; public $message; public function __construct(stri
 function is_wp_error($value) { return $value instanceof WP_Error; }
 require dirname(__DIR__) . '/fusion-plugins/fusion-plugins.php';
 
-$mirror = json_decode(file_get_contents(dirname(__DIR__) . '/mirror-index.json'), true);
+$mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index.json'), true);
 $validated = fpl_validate_mirror($mirror);
-if (is_wp_error($validated) || count($validated['packages']) !== 10) { throw new RuntimeException('The published mirror index did not validate.'); }
+if (is_wp_error($validated) || count($validated['packages']) !== 11) { throw new RuntimeException('The published mirror index did not validate.'); }
 $GLOBALS['stub_options']['fpl_mirror'] = $validated;
 
 $_GET['tab'] = 'catalogue';
@@ -61,5 +61,12 @@ fpl_render_admin();
 $html = ob_get_clean();
 if (strpos($html, 'name="fpl-selected"') === false || strpos($html, '<th scope="col">Available</th>') === false || strpos($html, '<th scope="col">Mirror</th>') !== false || strpos($html, 'Update selected plugins') === false) {
     throw new RuntimeException('The mirrored update was not selectable.');
+}
+$GLOBALS['stub_plugins'] = ['fusion-plugins/fusion-plugins.php'=>['Name'=>'Fusion Plugins','Version'=>'0.2.2']];
+ob_start();
+fpl_render_admin();
+$html = ob_get_clean();
+if (strpos($html, 'name="fpl-selected" value="fusion-plugins"') === false || strpos($html, '/releases/tag/v0.3.0') === false) {
+    throw new RuntimeException('The Fusion controller update was not shown.');
 }
 echo "Admin smoke test passed.\n";

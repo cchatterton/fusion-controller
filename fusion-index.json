@@ -22,6 +22,17 @@
         }
       }
     },
+    "fusion-plugins": {
+      "latest": "0.3.0",
+      "versions": {
+        "0.3.0": {
+          "requires": "6.5",
+          "requires_php": "7.4",
+          "sha256": "2347f3640561762872e4214a478b7d61bf3766b6f80afa0214462e8c85ec06e2",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/v0.3.0/fusion-plugins.zip"
+        }
+      }
+    },
     "redirection": {
       "latest": "5.10.1",
       "versions": {
