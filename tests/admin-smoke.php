@@ -69,14 +69,14 @@ $_GET['tab'] = 'installed';
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-if (strpos($html, 'No mirrored updates are available for plugins in this catalog.') === false) {
+if (strpos($html, 'No updates are available for plugins in this catalog.') === false) {
     throw new RuntimeException('The updates tab did not show its empty state.');
 }
 $GLOBALS['stub_plugins'] = ['cms-tree-page-view/cms-tree-page-view.php'=>['Name'=>'CMS Tree Page View','Version'=>'2.6.0']];
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-if (strpos($html, 'name="fpl-selected"') === false || strpos($html, '<th scope="col">Available</th>') === false || strpos($html, '<th scope="col">Mirror</th>') !== false || strpos($html, 'Update selected plugins') === false) {
+if (strpos($html, 'name="fpl-selected"') === false || strpos($html, '<th scope="col">Available</th>') === false || strpos($html, '<th scope="col">Actions</th>') !== false || strpos($html, '<th scope="col">Mirror</th>') !== false || strpos($html, 'Update selected plugins') === false) {
     throw new RuntimeException('The mirrored update was not selectable.');
 }
 $GLOBALS['stub_plugins'] = ['fusion-plugins/fusion-plugins.php'=>['Name'=>'Fusion Plugins','Version'=>'0.2.2']];
@@ -94,14 +94,22 @@ $GLOBALS['stub_site_transient']['update_plugins'] = (object) ['response'=>[
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-if (strpos($html, 'WordPress update available') === false || strpos($html, 'Update in WordPress Plugins') === false || strpos($html, 'name="fpl-selected" value="gravityforms"') !== false) {
+if (strpos($html, '<th scope="col">Actions</th>') === false || strpos($html, '<td>2.1.0</td><td><a href="/wp-admin/plugins.php">Update in WordPress Plugins</a>') === false || strpos($html, 'WordPress update available · Not in Fusion mirror yet') !== false || strpos($html, 'name="fpl-selected" value="gravityforms"') !== false) {
     throw new RuntimeException('The unmirrored vendor update was not shown as a WordPress update.');
 }
+$GLOBALS['stub_plugins']['cms-tree-page-view/cms-tree-page-view.php'] = ['Name'=>'CMS Tree Page View','Version'=>'2.6.0'];
+ob_start();
+fpl_render_admin();
+$mixed = ob_get_clean();
+if (strpos($mixed, 'name="fpl-selected" value="cms-tree-page-view"') === false || substr_count($mixed, 'Update in WordPress Plugins') !== 1 || substr_count($mixed, '<th scope="col">Actions</th>') !== 1) {
+    throw new RuntimeException('The mixed mirror and WordPress update table is incorrect.');
+}
+unset($GLOBALS['stub_plugins']['cms-tree-page-view/cms-tree-page-view.php']);
 $_GET['tab'] = 'catalogue';
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-if (strpos($html, 'WordPress reports update 2.1.0') === false) { throw new RuntimeException('The catalog card did not show the native update.'); }
+if (strpos($html, 'WordPress update 2.1.0') === false || strpos($html, 'Not in Fusion mirror yet') !== false) { throw new RuntimeException('The catalog card did not show the native update concisely.'); }
 $vendor_feed = ['schema'=>1,'packages'=>['gravityforms'=>['latest'=>'2.1.0','versions'=>['2.1.0'=>['sha256'=>str_repeat('a',64),'url'=>'https://github.com/cchatterton/fusion-controller/releases/download/mirror-gravityforms-v2.1.0/gravityforms-2.1.0.zip','root'=>'gravityforms']]]]];
 $vendor_validated = fpl_validate_mirror($vendor_feed);
 if (is_wp_error($vendor_validated)) { throw new RuntimeException('The vendor mirror package was rejected.'); }
@@ -112,7 +120,7 @@ $_GET['tab'] = 'installed';
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-if (strpos($html, 'name="fpl-selected" value="gravityforms"') === false || strpos($html, 'WordPress update available') !== false) {
+if (strpos($html, 'name="fpl-selected" value="gravityforms"') === false || strpos($html, '<th scope="col">Actions</th>') !== false) {
     throw new RuntimeException('The mirrored vendor update did not take precedence.');
 }
 echo "Admin smoke test passed.\n";

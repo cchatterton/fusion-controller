@@ -143,8 +143,7 @@ function fpl_render_catalogue(array $catalog, array $installed, $native): void {
             $availability = $release ? 'Latest ' . $release['version'] : (($entry['source'] ?? '') === 'vendor' ? 'Licensed vendor package' : 'Mirror not checked');
             echo '<p class="fpl-detail">' . ($match ? 'Installed ' . esc_html($match['data']['Version'] ?? '') : 'Not installed') . ' · ' . esc_html($availability) . '</p>';
             if ($requirements) { echo '<p class="fpl-detail">' . esc_html(implode(' · ', $requirements)) . '</p>'; }
-            if (($entry['source'] ?? '') === 'vendor' && !$release) { echo '<p class="fpl-detail">Licensed vendor package · Mirror source not configured</p>'; }
-            if ($match && !fpl_mirrored_update($entry, $match) && ($native_version = fpl_native_update($match, $native)) !== '') { echo '<p class="fpl-detail">WordPress reports update ' . esc_html($native_version) . ' · Not in Fusion mirror yet</p>'; }
+            if ($match && !fpl_mirrored_update($entry, $match) && ($native_version = fpl_native_update($match, $native)) !== '') { echo '<p class="fpl-detail">WordPress update ' . esc_html($native_version) . '</p>'; }
             if ($release && ($issue = fpl_compatibility($entry, $release))) { echo '<p class="fpl-warning">' . esc_html($issue) . '</p>'; }
             echo '<div class="fpl-actions">'; fpl_card_actions($entry, $installed, $native); echo '</div></div></article>';
         }
@@ -152,22 +151,31 @@ function fpl_render_catalogue(array $catalog, array $installed, $native): void {
     }
 }
 function fpl_render_installed(array $catalog, array $installed, $native): void {
-    echo '<div class="fpl-toolbar"><h2>Updates available</h2><button type="button" class="button button-primary" id="fpl-update-selected" disabled>Update selected plugins</button></div>';
-    echo '<div class="fpl-table-scroll"><table class="widefat striped"><thead><tr><td class="check-column"><input type="checkbox" id="fpl-select-all" aria-label="Select all eligible updates"></td><th scope="col">Plugin</th><th scope="col">Installed</th><th scope="col">Available</th></tr></thead><tbody>';
-    $count = 0;
+    $rows = []; $has_native = false;
     foreach ($catalog['plugins'] ?? [] as $entry) {
         $match = fpl_installed_plugin($entry, $installed); $release = fpl_mirrored_update($entry, $match);
         $native_version = $release ? '' : fpl_native_update($match, $native);
         if (!$release && $native_version === '') { continue; }
-        $count++; $issue = $release ? fpl_compatibility($entry, $release) : ''; $disabled = $issue || !wp_is_file_mod_allowed('fusion-plugins');
+        $rows[] = ['entry'=>$entry, 'match'=>$match, 'release'=>$release, 'native_version'=>$native_version];
+        if ($native_version !== '') { $has_native = true; }
+    }
+    echo '<div class="fpl-toolbar"><h2>Updates available</h2><button type="button" class="button button-primary" id="fpl-update-selected" disabled>Update selected plugins</button></div>';
+    echo '<div class="fpl-table-scroll"><table class="widefat striped"><thead><tr><td class="check-column"><input type="checkbox" id="fpl-select-all" aria-label="Select all eligible updates"></td><th scope="col">Plugin</th><th scope="col">Installed</th><th scope="col">Available</th>';
+    if ($has_native) { echo '<th scope="col">Actions</th>'; }
+    echo '</tr></thead><tbody>';
+    foreach ($rows as $row) {
+        $entry = $row['entry']; $match = $row['match']; $release = $row['release']; $native_version = $row['native_version'];
+        $issue = $release ? fpl_compatibility($entry, $release) : ''; $disabled = $issue || !wp_is_file_mod_allowed('fusion-plugins');
         echo '<tr><th class="check-column">';
         if ($release) { echo '<input type="checkbox" name="fpl-selected" value="' . esc_attr($entry['id']) . '" aria-label="Update ' . esc_attr($entry['name']) . '"' . ($disabled ? ' disabled' : '') . '>'; }
         echo '</th><td><strong>' . esc_html($entry['name']) . '</strong><br><span class="description">' . (fpl_is_active($match['file']) ? 'Active' : 'Inactive') . '</span></td><td>' . esc_html($match['data']['Version'] ?? '') . '</td><td>';
         if ($release) { echo '<a href="' . esc_url(fpl_release_url($entry, $release)) . '" target="_blank" rel="noopener noreferrer">' . esc_html($release['version']) . '<span class="screen-reader-text"> release notes (opens in a new tab)</span></a>'; }
-        else { echo esc_html($native_version) . '<p class="description">WordPress update available · Not in Fusion mirror yet</p><a href="' . esc_url(self_admin_url('plugins.php')) . '">Update in WordPress Plugins</a>'; }
+        else { echo esc_html($native_version); }
         if ($issue) { echo '<p class="fpl-warning">' . esc_html($issue) . '</p>'; }
-        echo '</td></tr>';
+        echo '</td>';
+        if ($has_native) { echo '<td>'; if ($native_version !== '') { echo '<a href="' . esc_url(self_admin_url('plugins.php')) . '">Update in WordPress Plugins</a>'; } echo '</td>'; }
+        echo '</tr>';
     }
-    if (!$count) { echo '<tr><td colspan="4">No mirrored updates are available for plugins in this catalog.</td></tr>'; }
+    if (!$rows) { echo '<tr><td colspan="4">No updates are available for plugins in this catalog.</td></tr>'; }
     echo '</tbody></table></div>';
 }

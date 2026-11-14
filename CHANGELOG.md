@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2 - 2026-11-14
+
+- Move WordPress fallback update links into an Actions column shown only when needed.
+- Remove redundant fallback explanation from the update row and catalogue card.
+
 ## 0.4.1 - 2026-11-14
 
 - Order the Plugins submenu as Techn Plugins, AlphaSys Plugins, Fusion Plugins and Other Plugins.

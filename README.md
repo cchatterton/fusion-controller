@@ -6,7 +6,7 @@ Fusion is a curated WordPress plugin catalog. **Fusion 26** is the first complet
 
 Checks and package operations show their progress and results in a modal. A successful check refreshes the update list and closes the modal; errors stay visible with a retry action.
 
-Fusion does not filter, disable or redirect WordPress native update checks. Its own install and update controls use the Fusion GitHub mirror. When a catalogued plugin has no mirrored update, Fusion reads WordPress's cached plugin update notice and links to the Plugins screen. That update is not selectable for a Fusion batch until its ZIP is mirrored.
+Fusion does not filter, disable or redirect WordPress native update checks. Its own install and update controls use the Fusion GitHub mirror. When a catalogued plugin has no mirrored update, Fusion reads WordPress's cached plugin update notice and shows its version with an **Update in WordPress Plugins** link in the Actions column. That update is not selectable for a Fusion batch until its ZIP is mirrored. The Actions column appears only when a WordPress update link is needed.
 
 ## Catalogs
 
