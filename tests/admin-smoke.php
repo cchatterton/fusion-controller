@@ -9,10 +9,14 @@ function get_option($key, $default = false) { return $GLOBALS['stub_options'][$k
 function get_transient() { return false; }
 function get_current_user_id() { return 1; }
 function get_plugins() { return $GLOBALS['stub_plugins'] ?? []; }
-function get_site_transient() { return false; }
+function get_site_transient($key) { return $GLOBALS['stub_site_transient'][$key] ?? false; }
 function admin_url($path = '') { return '/wp-admin/' . $path; }
 function self_admin_url($path = '') { return '/wp-admin/' . $path; }
-function add_query_arg($key, $value, $url) { return $url . (strpos($url, '?') === false ? '?' : '&') . $key . '=' . $value; }
+function add_query_arg($key, $value, $url = null) {
+    if (is_array($key)) { $url = $value; $query = http_build_query($key); }
+    else { $query = urlencode($key) . '=' . urlencode($value); }
+    return $url . (strpos($url, '?') === false ? '?' : '&') . $query;
+}
 function wp_unslash($value) { return $value; }
 function sanitize_key($value) { return $value; }
 function esc_html($value) { return htmlspecialchars((string) $value, ENT_QUOTES); }
@@ -28,9 +32,9 @@ class WP_Error { public $code; public $message; public function __construct(stri
 function is_wp_error($value) { return $value instanceof WP_Error; }
 require dirname(__DIR__) . '/fusion-plugins/fusion-plugins.php';
 
-$mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index-v2.json'), true);
+$mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index-v3.json'), true);
 $validated = fpl_validate_mirror($mirror);
-if (is_wp_error($validated) || count($validated['packages']) !== 14) { throw new RuntimeException('The published mirror index did not validate.'); }
+if (is_wp_error($validated) || count($validated['packages']) < 14) { throw new RuntimeException('The published mirror index did not validate.'); }
 $GLOBALS['stub_options']['fpl_mirror'] = $validated;
 
 $_GET['tab'] = 'catalogue';
@@ -69,5 +73,33 @@ $html = ob_get_clean();
 $self_version = $validated['packages']['fusion-plugins']['latest'];
 if (strpos($html, 'name="fpl-selected" value="fusion-plugins"') === false || strpos($html, '/releases/tag/v' . $self_version) === false) {
     throw new RuntimeException('The Fusion controller update was not shown.');
+}
+$GLOBALS['stub_plugins'] = ['gravityforms/gravityforms.php'=>['Name'=>'Gravity Forms','Version'=>'2.0.0']];
+$GLOBALS['stub_site_transient']['update_plugins'] = (object) ['response'=>[
+    'gravityforms/gravityforms.php'=>(object) ['new_version'=>'2.1.0']
+]];
+ob_start();
+fpl_render_admin();
+$html = ob_get_clean();
+if (strpos($html, 'WordPress update available') === false || strpos($html, 'Update in WordPress Plugins') === false || strpos($html, 'name="fpl-selected" value="gravityforms"') !== false) {
+    throw new RuntimeException('The unmirrored vendor update was not shown as a WordPress update.');
+}
+$_GET['tab'] = 'catalogue';
+ob_start();
+fpl_render_admin();
+$html = ob_get_clean();
+if (strpos($html, 'WordPress reports update 2.1.0') === false) { throw new RuntimeException('The catalog card did not show the native update.'); }
+$vendor_feed = ['schema'=>1,'packages'=>['gravityforms'=>['latest'=>'2.1.0','versions'=>['2.1.0'=>['sha256'=>str_repeat('a',64),'url'=>'https://github.com/cchatterton/fusion-controller/releases/download/mirror-gravityforms-v2.1.0/gravityforms-2.1.0.zip','root'=>'gravityforms']]]]];
+$vendor_validated = fpl_validate_mirror($vendor_feed);
+if (is_wp_error($vendor_validated)) { throw new RuntimeException('The vendor mirror package was rejected.'); }
+$vendor_feed['packages']['gravityforms']['versions']['2.1.0']['root'] = '../other';
+if (!is_wp_error(fpl_validate_mirror($vendor_feed))) { throw new RuntimeException('An unsafe vendor package directory was accepted.'); }
+$GLOBALS['stub_options']['fpl_mirror']['packages']['gravityforms'] = $vendor_validated['packages']['gravityforms'];
+$_GET['tab'] = 'installed';
+ob_start();
+fpl_render_admin();
+$html = ob_get_clean();
+if (strpos($html, 'name="fpl-selected" value="gravityforms"') === false || strpos($html, 'WordPress update available') !== false) {
+    throw new RuntimeException('The mirrored vendor update did not take precedence.');
 }
 echo "Admin smoke test passed.\n";

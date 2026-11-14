@@ -3,7 +3,7 @@ Contributors:
 Tags: plugins, catalogue, updates
 Requires at least: 6.5
 Requires PHP: 7.4
-Stable tag: 0.3.3
+Stable tag: 0.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,9 +25,14 @@ No. Native WordPress plugin update checks continue normally.
 
 = Are premium plugins included in the mirror? =
 
-No. Premium entries are cataloged, but their ZIPs require an authorised source and licence before mirroring.
+Premium entries can be mirrored when a licensed ZIP is supplied and distribution is permitted. Until then, Fusion shows a WordPress update notice with a link to the Plugins screen when WordPress reports one.
 
 == Changelog ==
+
+= 0.4.0 =
+
+* Show WordPress update notices when a catalogue plugin has no mirrored update.
+* Support verified manual mirroring of licensed vendor ZIPs.
 
 = 0.3.3 =
 
@@ -37,7 +42,7 @@ No. Premium entries are cataloged, but their ZIPs require an authorised source a
 
 * Add eight Fusion 26 selections and mirror three public WordPress.org packages.
 
-= 0.3.2 =
+= 0.3.1 =
 
 * Remove the redundant Manual checks only label from the controller status line.
 

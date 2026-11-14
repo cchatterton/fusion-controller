@@ -9,11 +9,15 @@ function fpl_validate_mirror($candidate) {
     if (!is_array($candidate) || ($candidate['schema'] ?? null) !== 1 || !is_array($candidate['packages'] ?? null) || count($candidate['packages']) > 200) { return new WP_Error('fusion_feed', 'The Fusion mirror index is invalid.'); }
     $known = [];
     foreach (fpl_catalogs() as $year => $meta) {
-        foreach (fpl_catalog($year)['plugins'] ?? [] as $entry) { if (in_array(($entry['source'] ?? ''), ['wordpress.org', 'github'], true) && !empty($entry['slug'])) { $known[$entry['slug']] = true; } }
+        foreach (fpl_catalog($year)['plugins'] ?? [] as $entry) {
+            $slug = (string) ($entry['slug'] ?? $entry['id'] ?? '');
+            if ($slug !== '' && in_array(($entry['source'] ?? ''), ['wordpress.org', 'github', 'vendor'], true)) { $known[$slug] = $entry['source']; }
+        }
     }
     $result = ['schema'=>1, 'packages'=>[]];
     foreach ($candidate['packages'] as $slug => $package) {
-        if (!isset($known[$slug]) || !is_array($package) || !is_array($package['versions'] ?? null) || count($package['versions']) > 100 || !fpl_valid_version((string) ($package['latest'] ?? ''))) { return new WP_Error('fusion_identity', 'The mirror index contains an unknown or invalid plugin.'); }
+        if (!isset($known[$slug])) { continue; }
+        if (!is_array($package) || !is_array($package['versions'] ?? null) || count($package['versions']) > 100 || !fpl_valid_version((string) ($package['latest'] ?? ''))) { return new WP_Error('fusion_identity', 'The mirror index contains an invalid plugin.'); }
         $latest = $package['latest'];
         if (!isset($package['versions'][$latest])) { return new WP_Error('fusion_latest', 'The mirror index has no package for its latest version.'); }
         $versions = [];
@@ -24,6 +28,10 @@ function fpl_validate_mirror($candidate) {
                 : 'https://github.com/cchatterton/fusion-controller/releases/download/mirror-' . $slug . '-v' . $version . '/' . $slug . '-' . $version . '.zip';
             if (($release['url'] ?? '') !== $url) { return new WP_Error('fusion_url', 'The mirror index contains an invalid package URL.'); }
             $versions[$version] = ['sha256'=>$release['sha256'], 'url'=>$url];
+            if (isset($release['root'])) {
+                if ($known[$slug] !== 'vendor' || !preg_match('/^[a-z0-9][a-z0-9_-]*$/D', (string) $release['root'])) { return new WP_Error('fusion_root', 'The mirror index contains an invalid plugin directory.'); }
+                $versions[$version]['root'] = $release['root'];
+            }
             foreach (['requires','requires_php'] as $key) {
                 if (isset($release[$key]) && $release[$key] !== '') {
                     if (!preg_match('/^\d+(?:\.\d+){0,3}$/D', (string) $release[$key])) { return new WP_Error('fusion_requirements', 'The mirror index contains invalid requirements.'); }
@@ -76,7 +84,7 @@ function fpl_install_mirrored(array $entry, array $expected) {
         if (!class_exists('ZipArchive')) { return new WP_Error('fusion_zip', 'ZIP support is unavailable on this server.'); }
         $zip = new ZipArchive();
         if ($zip->open($download) !== true) { return new WP_Error('fusion_zip', 'The mirrored package is not a valid ZIP.'); }
-        $root = $entry['slug'] . '/'; $valid = $zip->numFiles > 0;
+        $root = ($release['root'] ?? $entry['slug'] ?? $entry['id']) . '/'; $valid = $zip->numFiles > 0;
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $name = (string) $zip->getNameIndex($i);
             if (strpos($name, $root) !== 0 || strpos($name, '..') !== false || strpos($name, '\\') !== false) { $valid = false; break; }
@@ -106,7 +114,7 @@ function fpl_start_batch(array $ids, string $kind, string $year) {
     $installed = get_plugins(); $catalog = fpl_catalog($year); $items = [];
     foreach ($ids as $id) {
         $entry = fpl_plugin_by_id($catalog, $id); $release = fpl_latest_release($entry);
-        if (!$entry || !$release || empty($entry['slug'])) { return new WP_Error('fusion_release', 'A selected plugin has no mirrored release.'); }
+        if (!$entry || !$release || empty($release['root'] ?? $entry['slug'] ?? $entry['id'])) { return new WP_Error('fusion_release', 'A selected plugin has no mirrored release.'); }
         $issue = fpl_compatibility($entry, $release);
         if ($issue) { return new WP_Error('fusion_compatibility', $entry['name'] . ': ' . $issue); }
         $match = fpl_installed_plugin($entry, $installed);

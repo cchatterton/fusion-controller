@@ -36,10 +36,10 @@ class MirrorTests(unittest.TestCase):
     def test_older_feeds_keep_their_known_package_sets(self):
         legacy = json.loads((sync.ROOT / "mirror-index.json").read_text())["packages"]
         first_fusion = json.loads((sync.ROOT / "fusion-index.json").read_text())["packages"]
-        current = json.loads((sync.ROOT / "fusion-index-v2.json").read_text())["packages"]
+        current = json.loads((sync.ROOT / "fusion-index-v3.json").read_text())["packages"]
         self.assertEqual(10, len(legacy))
         self.assertEqual(set(legacy) | {"fusion-plugins"}, set(first_fusion))
-        self.assertEqual(set(first_fusion) | {"font-awesome", "query-monitor", "search-regex"}, set(current))
+        self.assertTrue((set(first_fusion) | {"font-awesome", "query-monitor", "search-regex"}).issubset(set(current)))
 
     def test_current_catalog_has_unique_roles_and_expected_plugins(self):
         catalog = json.loads((sync.ROOT / "fusion-plugins/catalogs/26.json").read_text())

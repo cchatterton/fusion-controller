@@ -188,7 +188,7 @@ def main():
     parser.add_argument("--include-supported", action="store_true", help="Also refresh previous supported catalogs")
     args = parser.parse_args()
     plugins = selected_plugins(args.catalog, args.slug, args.include_supported)
-    index_path = ROOT / "fusion-index-v2.json"
+    index_path = ROOT / "fusion-index-v3.json"
     index = read_json(index_path)
     if index.get("schema") != 1 or not isinstance(index.get("packages"), dict):
         raise ValueError("Invalid mirror index")
@@ -202,7 +202,7 @@ def main():
             print(f"ERROR {slug}: {error}", file=sys.stderr)
     if changed:
         write_json(index_path, index)
-        for filename in ("mirror-index.json", "fusion-index.json"):
+        for filename in ("mirror-index.json", "fusion-index.json", "fusion-index-v2.json"):
             legacy_path = ROOT / filename
             legacy_slugs = read_json(legacy_path)["packages"].keys()
             write_json(legacy_path, {"schema": 1, "packages": {

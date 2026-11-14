@@ -42,7 +42,7 @@ function fpl_mirror(): array {
 }
 
 function fpl_latest_release(array $entry): array {
-    $slug = (string) ($entry['slug'] ?? '');
+    $slug = (string) ($entry['slug'] ?? $entry['id'] ?? '');
     $package = fpl_mirror()['packages'][$slug] ?? [];
     $version = (string) ($package['latest'] ?? '');
     $release = $package['versions'][$version] ?? [];

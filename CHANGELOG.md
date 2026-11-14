@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0 - 2026-11-14
+
+- Show cached WordPress update notices for catalog plugins without a mirrored update, with a link to the Plugins screen.
+- Add a verified manual import path for licensed vendor ZIPs supplied by the license holder.
+- Keep older Fusion feeds compatible while manual packages are added to the new index.
+
 ## 0.3.3 - 2026-11-14
 
 - Give the expanded Fusion 26 catalogue a separate index so earlier controllers can still check for and install their own updates.
