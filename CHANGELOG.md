@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 - 2026-11-14
+
+- Remove the redundant Mirror column from Updates available. The available version still links to its mirrored release.
+
 ## 0.2.0 - 2026-11-14
 
 - Add manual mirror checks and selected plugin updates from verified GitHub ZIPs.

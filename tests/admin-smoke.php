@@ -54,7 +54,7 @@ $GLOBALS['stub_plugins'] = ['cms-tree-page-view/cms-tree-page-view.php'=>['Name'
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-if (strpos($html, 'name="fpl-selected"') === false || strpos($html, 'Fusion GitHub mirror') === false || strpos($html, 'Update selected plugins') === false) {
+if (strpos($html, 'name="fpl-selected"') === false || strpos($html, '<th scope="col">Available</th>') === false || strpos($html, '<th scope="col">Mirror</th>') !== false || strpos($html, 'Update selected plugins') === false) {
     throw new RuntimeException('The mirrored update was not selectable.');
 }
 echo "Admin smoke test passed.\n";

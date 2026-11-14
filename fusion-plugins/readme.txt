@@ -3,7 +3,7 @@ Contributors:
 Tags: plugins, catalogue, updates
 Requires at least: 6.5
 Requires PHP: 7.4
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,10 @@ No. Native WordPress plugin update checks continue normally.
 No. Premium entries are cataloged, but their ZIPs require an authorised source and licence before mirroring.
 
 == Changelog ==
+
+= 0.2.1 =
+
+* Remove the redundant Mirror column from Updates available.
 
 = 0.2.0 =
 

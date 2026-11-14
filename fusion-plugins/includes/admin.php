@@ -116,7 +116,7 @@ function fpl_render_catalogue(array $catalog, array $installed): void {
 }
 function fpl_render_installed(array $catalog, array $installed): void {
     echo '<div class="fpl-toolbar"><h2>Updates available</h2><button type="button" class="button button-primary" id="fpl-update-selected" disabled>Update selected plugins</button></div>';
-    echo '<div class="fpl-table-scroll"><table class="widefat striped"><thead><tr><td class="check-column"><input type="checkbox" id="fpl-select-all" aria-label="Select all eligible updates"></td><th scope="col">Plugin</th><th scope="col">Installed</th><th scope="col">Available</th><th scope="col">Mirror</th></tr></thead><tbody>';
+    echo '<div class="fpl-table-scroll"><table class="widefat striped"><thead><tr><td class="check-column"><input type="checkbox" id="fpl-select-all" aria-label="Select all eligible updates"></td><th scope="col">Plugin</th><th scope="col">Installed</th><th scope="col">Available</th></tr></thead><tbody>';
     $count = 0;
     foreach ($catalog['plugins'] ?? [] as $entry) {
         $match = fpl_installed_plugin($entry, $installed); $release = fpl_latest_release($entry);
@@ -124,8 +124,8 @@ function fpl_render_installed(array $catalog, array $installed): void {
         $count++; $issue = fpl_compatibility($entry, $release); $disabled = $issue || !wp_is_file_mod_allowed('fusion-plugins');
         echo '<tr><th class="check-column"><input type="checkbox" name="fpl-selected" value="' . esc_attr($entry['id']) . '" aria-label="Update ' . esc_attr($entry['name']) . '"' . ($disabled ? ' disabled' : '') . '></th><td><strong>' . esc_html($entry['name']) . '</strong><br><span class="description">' . (fpl_is_active($match['file']) ? 'Active' : 'Inactive') . '</span></td><td>' . esc_html($match['data']['Version'] ?? '') . '</td><td><a href="' . esc_url(fpl_release_url($entry, $release)) . '" target="_blank" rel="noopener noreferrer">' . esc_html($release['version']) . '<span class="screen-reader-text"> release notes (opens in a new tab)</span></a>';
         if ($issue) { echo '<p class="fpl-warning">' . esc_html($issue) . '</p>'; }
-        echo '</td><td>Fusion GitHub mirror</td></tr>';
+        echo '</td></tr>';
     }
-    if (!$count) { echo '<tr><td colspan="5">No mirrored updates are available for plugins in this catalog.</td></tr>'; }
+    if (!$count) { echo '<tr><td colspan="4">No mirrored updates are available for plugins in this catalog.</td></tr>'; }
     echo '</tbody></table></div>';
 }

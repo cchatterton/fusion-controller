@@ -24,7 +24,7 @@
 .fpl-warning { color: #8a4000; }
 .fpl-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
 .fpl-table-scroll { overflow-x: auto; }
-.fpl-table-scroll table { min-width: 42rem; }
+.fpl-table-scroll table { min-width: 35rem; }
 .fpl-table-scroll td { padding: .9rem .6rem; vertical-align: top; }
 .fpl-table-scroll .check-column { padding: 1rem .6rem; }
 .fpl-table-scroll td p { margin: .35rem 0 0; }
