@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 - 2026-11-14
+
+- Show Fusion mirror checks, package progress, errors and batch results in a modal matching the other controllers.
+- Refresh the plugin list after a check or batch without relying on an inline status notice.
+
 ## 0.2.1 - 2026-11-14
 
 - Remove the redundant Mirror column from Updates available. The available version still links to its mirrored release.

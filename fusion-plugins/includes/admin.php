@@ -44,18 +44,24 @@ function fpl_render_admin(): void {
     }
     $notice = get_transient('fpl_notice_' . get_current_user_id());
     if ($notice) { delete_transient('fpl_notice_' . get_current_user_id()); }
-    echo '<div class="wrap fpl-wrap"><h1>Fusion Plugins</h1>';
+    echo '<div class="wrap fpl-wrap"><h1>Fusion Plugins</h1><div id="fpl-view">';
     if (is_array($notice)) { echo '<div class="notice ' . (!empty($notice['error']) ? 'notice-error' : 'notice-success') . ' is-dismissible"><p>' . esc_html($notice['message'] ?? '') . '</p></div>'; }
     echo '<header class="fpl-header"><span class="fpl-version">v' . esc_html(FPL_VERSION) . '</span><p class="fpl-eyebrow">Fusion ' . esc_html($year) . '</p><h2>One considered choice for every job.</h2><p>Curated plugins, ready from the Fusion mirror.</p><div class="fpl-header-bottom"><span>' . esc_html($installed_count) . ' installed · ' . esc_html($updates) . ' updates available</span><button type="button" class="button fpl-primary" data-fpl-check>Check for updates</button></div></header>';
     echo '<div class="fpl-status"><span>' . esc_html(fpl_last_check()) . '</span><span>Manual checks only</span></div>';
     echo '<nav class="nav-tab-wrapper" aria-label="Fusion Plugins">';
     foreach (['installed'=>'Updates available','catalogue'=>'Catalogue'] as $key=>$label) { echo '<a class="nav-tab ' . ($key === $tab ? 'nav-tab-active' : '') . '" href="' . esc_url(fpl_admin_url($key)) . '">' . esc_html($label) . '</a>'; }
-    echo '</nav><div id="fpl-feedback" role="status" aria-live="polite"></div><main class="fpl-main">';
+    echo '</nav><main class="fpl-main">';
     $batch = fpl_batch();
     if (($batch['status'] ?? '') === 'running') { echo '<p><button type="button" class="button" data-fpl-resume="' . esc_attr($batch['id']) . '">Resume ' . esc_html($batch['kind']) . 's</button></p>'; }
     if ($tab === 'catalogue') { fpl_render_catalogue($catalog, $installed); }
     else { fpl_render_installed($catalog, $installed); }
     echo '<noscript><p>JavaScript is required for installing and updating from the Fusion mirror.</p>'; fpl_action_form('check', 'Check for updates'); echo '</noscript></main></div>';
+    fpl_render_dialog();
+    echo '</div>';
+}
+
+function fpl_render_dialog(): void {
+    echo '<dialog id="fpl-dialog" class="fpl-dialog" aria-labelledby="fpl-dialog-title" aria-describedby="fpl-dialog-message"><h2 id="fpl-dialog-title" tabindex="-1">Checking for updates</h2><div class="fpl-activity"><span class="spinner is-active" aria-hidden="true"></span><p id="fpl-dialog-message" role="status" aria-live="polite"></p></div><div id="fpl-progress-area" hidden><progress id="fpl-progress" max="1" value="0" aria-label="Plugins processed"></progress><p id="fpl-current"></p></div><details id="fpl-failures" hidden><summary>Failed plugins</summary><ul></ul></details><div class="fpl-dialog-actions"><button type="button" class="button" id="fpl-retry" hidden>Retry</button><button type="button" class="button button-primary" id="fpl-close" disabled>Close</button></div></dialog>';
 }
 
 function fpl_release_url(array $entry, array $release): string {

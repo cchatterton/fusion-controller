@@ -4,6 +4,8 @@ Fusion is a curated WordPress plugin catalog. **Fusion 26** is the first complet
 
 **Check for updates** downloads one public `mirror-index.json` file. The controller compares installed versions with the latest verified mirrored versions. Select eligible updates and choose **Update selected plugins**, or install a mirrored release from its catalog card. Each operation runs one plugin at a time and verifies the ZIP's SHA-256 and folder before WordPress installs it. New installs remain inactive until activated. An interrupted batch can be resumed.
 
+Checks and package operations show their progress and results in a modal. A successful check refreshes the update list and closes the modal; errors stay visible with a retry action.
+
 Fusion does not filter, disable or redirect WordPress native update checks. Its own install and update controls use the Fusion GitHub mirror. Premium plugins are cataloged but require a licensed vendor package until an authorised mirror source is configured.
 
 ## Catalogs

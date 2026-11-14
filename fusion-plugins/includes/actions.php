@@ -145,6 +145,14 @@ function fpl_step_batch(string $id) {
 
 function fpl_dispatch(string $operation, array $input) {
     if (!fpl_can_manage()) { return new WP_Error('fusion_permission', 'You cannot manage Fusion plugins.'); }
+    if ($operation === 'view') {
+        $previous = $_GET['tab'] ?? null;
+        $_GET['tab'] = sanitize_key($input['tab'] ?? 'installed');
+        ob_start();
+        try { fpl_render_admin(); $html = ob_get_contents(); }
+        finally { ob_end_clean(); if ($previous === null) { unset($_GET['tab']); } else { $_GET['tab'] = $previous; } }
+        return ['html'=>$html];
+    }
     if ($operation === 'check') { return fpl_refresh_mirror(); }
     if ($operation === 'start') { return fpl_start_batch((array) ($input['ids'] ?? []), sanitize_key($input['kind'] ?? ''), sanitize_text_field($input['year'] ?? fpl_selected_year())); }
     if ($operation === 'step') { return fpl_step_batch(sanitize_text_field($input['job'] ?? '')); }
