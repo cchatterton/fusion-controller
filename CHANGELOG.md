@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0 - 2026-11-14
+
+- Include Fusion Plugins in the Fusion 26 catalogue and its own update flow.
+- Index the verified controller release ZIP alongside mirrored plugins, while retaining the older public-only feed.
+
 ## 0.2.2 - 2026-11-14
 
 - Show Fusion mirror checks, package progress, errors and batch results in a modal matching the other controllers.

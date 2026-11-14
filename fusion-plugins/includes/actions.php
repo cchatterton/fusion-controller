@@ -9,7 +9,7 @@ function fpl_validate_mirror($candidate) {
     if (!is_array($candidate) || ($candidate['schema'] ?? null) !== 1 || !is_array($candidate['packages'] ?? null) || count($candidate['packages']) > 200) { return new WP_Error('fusion_feed', 'The Fusion mirror index is invalid.'); }
     $known = [];
     foreach (fpl_catalogs() as $year => $meta) {
-        foreach (fpl_catalog($year)['plugins'] ?? [] as $entry) { if (($entry['source'] ?? '') === 'wordpress.org' && !empty($entry['slug'])) { $known[$entry['slug']] = true; } }
+        foreach (fpl_catalog($year)['plugins'] ?? [] as $entry) { if (in_array(($entry['source'] ?? ''), ['wordpress.org', 'github'], true) && !empty($entry['slug'])) { $known[$entry['slug']] = true; } }
     }
     $result = ['schema'=>1, 'packages'=>[]];
     foreach ($candidate['packages'] as $slug => $package) {
@@ -19,7 +19,9 @@ function fpl_validate_mirror($candidate) {
         $versions = [];
         foreach ($package['versions'] as $version => $release) {
             if (!fpl_valid_version((string) $version) || !is_array($release) || !preg_match('/^[a-f0-9]{64}$/D', (string) ($release['sha256'] ?? ''))) { return new WP_Error('fusion_release', 'The mirror index contains invalid release metadata.'); }
-            $url = 'https://github.com/cchatterton/fusion-controller/releases/download/mirror-' . $slug . '-v' . $version . '/' . $slug . '-' . $version . '.zip';
+            $url = $slug === 'fusion-plugins'
+                ? 'https://github.com/cchatterton/fusion-controller/releases/download/v' . $version . '/fusion-plugins.zip'
+                : 'https://github.com/cchatterton/fusion-controller/releases/download/mirror-' . $slug . '-v' . $version . '/' . $slug . '-' . $version . '.zip';
             if (($release['url'] ?? '') !== $url) { return new WP_Error('fusion_url', 'The mirror index contains an invalid package URL.'); }
             $versions[$version] = ['sha256'=>$release['sha256'], 'url'=>$url];
             foreach (['requires','requires_php'] as $key) {
@@ -112,6 +114,7 @@ function fpl_start_batch(array $ids, string $kind, string $year) {
         if ($kind === 'update' && (!$match || !version_compare($release['version'], (string) ($match['data']['Version'] ?? '0'), '>'))) { return new WP_Error('fusion_current', $entry['name'] . ' has no mirrored update.'); }
         $items[] = ['id'=>$id, 'version'=>$release['version'], 'sha256'=>$release['sha256'], 'status'=>'pending'];
     }
+    usort($items, static function ($a, $b) { return ($a['id'] === 'fusion-plugins') <=> ($b['id'] === 'fusion-plugins'); });
     $job = ['id'=>wp_generate_uuid4(), 'owner'=>get_current_user_id(), 'kind'=>$kind, 'year'=>$year, 'items'=>$items, 'status'=>'running', 'updated_at'=>time()];
     fpl_store_batch($job);
     return $job;

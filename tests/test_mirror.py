@@ -35,10 +35,11 @@ def archive(names):
 class MirrorTests(unittest.TestCase):
     def test_current_catalog_has_unique_roles_and_expected_plugins(self):
         catalog = json.loads((sync.ROOT / "fusion-plugins/catalogs/26.json").read_text())
-        self.assertEqual(16, len(catalog["plugins"]))
-        self.assertEqual(16, len({entry["role"] for entry in catalog["plugins"]}))
+        self.assertEqual(17, len(catalog["plugins"]))
+        self.assertEqual(17, len({entry["role"] for entry in catalog["plugins"]}))
         self.assertEqual("cms-tree-page-view", next(entry["slug"] for entry in catalog["plugins"] if entry["role"] == "Page tree"))
-        self.assertEqual(10, len(sync.selected_plugins("", "", False)))
+        self.assertEqual(11, len(sync.selected_plugins("", "", False)))
+        self.assertEqual("github", sync.selected_plugins("", "fusion-plugins", False)["fusion-plugins"]["source"])
 
     def test_download_rejects_other_plugin_folder(self):
         with tempfile.TemporaryDirectory() as directory:

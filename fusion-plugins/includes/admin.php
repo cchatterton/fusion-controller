@@ -65,6 +65,7 @@ function fpl_render_dialog(): void {
 }
 
 function fpl_release_url(array $entry, array $release): string {
+    if ($entry['slug'] === 'fusion-plugins') { return 'https://github.com/cchatterton/fusion-controller/releases/tag/v' . $release['version']; }
     return 'https://github.com/cchatterton/fusion-controller/releases/tag/mirror-' . $entry['slug'] . '-v' . $release['version'];
 }
 function fpl_card_actions(array $entry, array $installed): void {

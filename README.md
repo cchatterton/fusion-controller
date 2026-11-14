@@ -2,7 +2,7 @@
 
 Fusion is a curated WordPress plugin catalog. **Fusion 26** is the first complete catalog in this repository, with one selected plugin for each listed function. Open **Plugins → Fusion Plugins** (Network Admin on multisite). The two tabs are **Updates available** and **Catalogue**. Choose the catalog from the pick list at the top of Catalogue.
 
-**Check for updates** downloads one public `mirror-index.json` file. The controller compares installed versions with the latest verified mirrored versions. Select eligible updates and choose **Update selected plugins**, or install a mirrored release from its catalog card. Each operation runs one plugin at a time and verifies the ZIP's SHA-256 and folder before WordPress installs it. New installs remain inactive until activated. An interrupted batch can be resumed.
+**Check for updates** downloads one public `fusion-index.json` file. The controller compares installed versions with the latest verified mirrored versions. Select eligible updates and choose **Update selected plugins**, or install a mirrored release from its catalog card. Each operation runs one plugin at a time and verifies the ZIP's SHA-256 and folder before WordPress installs it. New installs remain inactive until activated. An interrupted batch can be resumed.
 
 Checks and package operations show their progress and results in a modal. A successful check refreshes the update list and closes the modal; errors stay visible with a retry action.
 
@@ -16,11 +16,11 @@ The selected catalog is stored as a site option, or a network option on multisit
 
 ## Mirror
 
-The GitHub Action checks the current catalog daily. Each Sunday it also checks previous supported catalogs, with shared plugin slugs checked only once. `workflow_dispatch` accepts an optional catalog year and WordPress.org slug. The sync validates package identity, ZIP paths and integrity, then publishes versioned GitHub release ZIPs and updates `mirror-index.json`. Historical release assets are retained. Failed checks retain the last known index and fail the workflow.
+The GitHub Action checks the current catalog daily. Each Sunday it also checks previous supported catalogs, with shared plugin slugs checked only once. `workflow_dispatch` accepts an optional catalog year and plugin slug. The sync validates package identity, ZIP paths and integrity, then publishes versioned GitHub release ZIPs and updates `fusion-index.json`. Fusion Plugins itself is indexed from its verified controller release ZIP. The public-plugin-only `mirror-index.json` remains available for older controllers. Historical release assets are retained. Failed checks retain the last known index and fail the workflow.
 
 The curated decision is which plugin fills each function. The latest verified mirrored release is available to the controller without a separate version approval step. Sites fetch the index only when an administrator clicks **Check for updates**; ordinary page loads read the cached result. No GitHub token is stored on sites.
 
-`approved.json` remains empty solely so older 0.1.x clients can finish their existing checks during migration. Fusion 0.2.0 does not read it.
+`approved.json` remains empty solely so older 0.1.x clients can finish their existing checks during migration. Current Fusion versions do not read it.
 
 Premium plugins need an authorised vendor adapter and a verified package identity before they can enter the mirror. Catalog membership does not grant redistribution rights.
 

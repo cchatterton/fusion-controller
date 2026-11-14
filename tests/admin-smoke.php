@@ -45,7 +45,7 @@ if (strpos($html, 'id="fpl-view"') === false || strpos($html, '<dialog id="fpl-d
 }
 $view = fpl_dispatch('view', ['tab'=>'catalogue']);
 if (is_wp_error($view) || strpos($view['html'], 'id="fpl-view"') === false) { throw new RuntimeException('The catalog view could not refresh inside the modal flow.'); }
-if (substr_count($html, 'class="fpl-card"') !== 16 || substr_count($html, 'class="nav-tab ') !== 2 || strpos($html, '>Settings</a>') !== false || strpos($html, '>Catalogs</a>') !== false || strpos($html, 'Techn /') !== false || strpos($html, 'AlphaSys') !== false) {
+if (substr_count($html, 'class="fpl-card"') !== 17 || substr_count($html, 'class="nav-tab ') !== 2 || strpos($html, '>Settings</a>') !== false || strpos($html, '>Catalogs</a>') !== false || strpos($html, 'Techn /') !== false || strpos($html, 'AlphaSys') !== false) {
     throw new RuntimeException('Unexpected catalog or branding output.');
 }
 $_GET['tab'] = 'installed';

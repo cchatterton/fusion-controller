@@ -3,6 +3,16 @@
   "year": "26",
   "plugins": [
     {
+      "id": "fusion-plugins",
+      "name": "Fusion Plugins",
+      "role": "Plugin catalogue",
+      "source": "github",
+      "slug": "fusion-plugins",
+      "description": "Browse the curated Fusion catalogue and install updates from its GitHub mirror.",
+      "requires": "6.5",
+      "requires_php": "7.4"
+    },
+    {
       "id": "userway-accessibility-widget",
       "name": "Accessibility by UserWay",
       "role": "Accessibility",
