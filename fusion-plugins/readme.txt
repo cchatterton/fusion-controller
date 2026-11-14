@@ -3,7 +3,7 @@ Contributors:
 Tags: plugins, catalogue, updates
 Requires at least: 6.5
 Requires PHP: 7.4
-Stable tag: 0.4.2
+Stable tag: 0.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,11 @@ No. Native WordPress plugin update checks continue normally.
 Premium entries can be mirrored when a licensed ZIP is supplied and distribution is permitted. Until then, Fusion shows a WordPress update notice with a link to the Plugins screen when WordPress reports one.
 
 == Changelog ==
+
+= 0.4.3 =
+
+* Restore WordPress's Installed Plugins label and place core plugin actions before Techn, AlphaSys and Fusion.
+* Keep the dedicated Other Plugins item last and avoid a duplicate label.
 
 = 0.4.2 =
 

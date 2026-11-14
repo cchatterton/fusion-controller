@@ -13,17 +13,18 @@ function fpl_order_plugin_menu(): void {
     if (is_multisite() && !is_network_admin()) { return; }
     global $submenu;
     if (empty($submenu['plugins.php']) || !is_array($submenu['plugins.php'])) { return; }
-    $order = ['tnuc', 'asuc', 'fusion-plugins', 'plugins.php'];
+    $order = ['plugins.php', 'plugin-install.php', 'plugin-editor.php', 'tnuc', 'asuc', 'fusion-plugins'];
     $selected = []; $remaining = [];
+    $other = null;
     foreach ($submenu['plugins.php'] as $item) {
         $slug = (string) ($item[2] ?? '');
-        if ($slug === 'plugins.php') { $item[0] = 'Other Plugins'; }
-        if (in_array($slug, $order, true)) { $selected[$slug] = $item; }
+        if ($slug === 'tn-other-plugins') { $other = $item; }
+        elseif (in_array($slug, $order, true)) { $selected[$slug] = $item; }
         else { $remaining[] = $item; }
     }
     $first = [];
     foreach ($order as $slug) { if (isset($selected[$slug])) { $first[] = $selected[$slug]; } }
-    $submenu['plugins.php'] = array_merge($first, $remaining);
+    $submenu['plugins.php'] = array_merge($first, $remaining, $other ? [$other] : []);
 }
 function fpl_admin_assets(string $hook): void {
     if ($hook !== 'plugins_page_fusion-plugins') { return; }

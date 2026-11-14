@@ -39,10 +39,16 @@ $submenu['plugins.php'] = [
     ['Plugin File Editor', 'edit_plugins', 'plugin-editor.php'],
     ['Fusion Plugins', 'install_plugins', 'fusion-plugins'],
     ['Techn Plugins', 'update_plugins', 'tnuc'],
+    ['Other Plugins', 'update_plugins', 'tn-other-plugins'],
 ];
 fpl_order_plugin_menu();
-if (array_column($submenu['plugins.php'], 2) !== ['tnuc', 'asuc', 'fusion-plugins', 'plugins.php', 'plugin-install.php', 'plugin-editor.php'] || $submenu['plugins.php'][3][0] !== 'Other Plugins') {
+if (array_column($submenu['plugins.php'], 2) !== ['plugins.php', 'plugin-install.php', 'plugin-editor.php', 'tnuc', 'asuc', 'fusion-plugins', 'tn-other-plugins'] || $submenu['plugins.php'][0][0] !== 'Installed Plugins') {
     throw new RuntimeException('The Plugins submenu order is incorrect.');
+}
+$submenu['plugins.php'] = array_values(array_filter($submenu['plugins.php'], static fn($item) => $item[2] !== 'plugin-editor.php'));
+fpl_order_plugin_menu();
+if (array_column($submenu['plugins.php'], 2) !== ['plugins.php', 'plugin-install.php', 'tnuc', 'asuc', 'fusion-plugins', 'tn-other-plugins']) {
+    throw new RuntimeException('The Plugins submenu order without the optional editor is incorrect.');
 }
 
 $mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index-v3.json'), true);

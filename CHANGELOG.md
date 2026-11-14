@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.3 - 2026-11-14
+
+- Restore the Installed Plugins label and place WordPress plugin actions first.
+- Order Techn, AlphaSys and Fusion after core actions, with the dedicated Other Plugins item last.
+- Handle sites where Plugin File Editor is unavailable.
+
 ## 0.4.2 - 2026-11-14
 
 - Move WordPress fallback update links into an Actions column shown only when needed.
