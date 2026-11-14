@@ -32,6 +32,19 @@ class WP_Error { public $code; public $message; public function __construct(stri
 function is_wp_error($value) { return $value instanceof WP_Error; }
 require dirname(__DIR__) . '/fusion-plugins/fusion-plugins.php';
 
+$submenu['plugins.php'] = [
+    ['Installed Plugins', 'activate_plugins', 'plugins.php'],
+    ['Add Plugin', 'install_plugins', 'plugin-install.php'],
+    ['AlphaSys Plugins', 'update_plugins', 'asuc'],
+    ['Plugin File Editor', 'edit_plugins', 'plugin-editor.php'],
+    ['Fusion Plugins', 'install_plugins', 'fusion-plugins'],
+    ['Techn Plugins', 'update_plugins', 'tnuc'],
+];
+fpl_order_plugin_menu();
+if (array_column($submenu['plugins.php'], 2) !== ['tnuc', 'asuc', 'fusion-plugins', 'plugins.php', 'plugin-install.php', 'plugin-editor.php'] || $submenu['plugins.php'][3][0] !== 'Other Plugins') {
+    throw new RuntimeException('The Plugins submenu order is incorrect.');
+}
+
 $mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index-v3.json'), true);
 $validated = fpl_validate_mirror($mirror);
 if (is_wp_error($validated) || count($validated['packages']) < 14) { throw new RuntimeException('The published mirror index did not validate.'); }

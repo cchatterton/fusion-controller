@@ -9,6 +9,22 @@ function fpl_add_menu(): void {
     if (is_multisite() && !is_network_admin()) { return; }
     add_submenu_page('plugins.php', 'Fusion Plugins', 'Fusion Plugins', 'install_plugins', 'fusion-plugins', 'fpl_render_admin');
 }
+function fpl_order_plugin_menu(): void {
+    if (is_multisite() && !is_network_admin()) { return; }
+    global $submenu;
+    if (empty($submenu['plugins.php']) || !is_array($submenu['plugins.php'])) { return; }
+    $order = ['tnuc', 'asuc', 'fusion-plugins', 'plugins.php'];
+    $selected = []; $remaining = [];
+    foreach ($submenu['plugins.php'] as $item) {
+        $slug = (string) ($item[2] ?? '');
+        if ($slug === 'plugins.php') { $item[0] = 'Other Plugins'; }
+        if (in_array($slug, $order, true)) { $selected[$slug] = $item; }
+        else { $remaining[] = $item; }
+    }
+    $first = [];
+    foreach ($order as $slug) { if (isset($selected[$slug])) { $first[] = $selected[$slug]; } }
+    $submenu['plugins.php'] = array_merge($first, $remaining);
+}
 function fpl_admin_assets(string $hook): void {
     if ($hook !== 'plugins_page_fusion-plugins') { return; }
     wp_enqueue_style('fpl-admin', plugins_url('assets/admin.css', FPL_FILE), [], FPL_VERSION);

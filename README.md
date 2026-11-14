@@ -1,6 +1,6 @@
 # Fusion Plugins
 
-Fusion is a curated WordPress plugin catalog. **Fusion 26** is the first complete catalog in this repository, with one selected plugin for each listed function. Open **Plugins → Fusion Plugins** (Network Admin on multisite). The two tabs are **Updates available** and **Catalogue**. Choose the catalog from the pick list at the top of Catalogue.
+Fusion is a curated WordPress plugin catalog. **Fusion 26** is the first complete catalog in this repository, with one selected plugin for each listed function. Open **Plugins → Fusion Plugins** (Network Admin on multisite). When present, the Plugins submenu lists Techn Plugins, AlphaSys Plugins, Fusion Plugins, then WordPress's installed plugin page as Other Plugins; Add Plugin and Plugin File Editor follow. The two Fusion tabs are **Updates available** and **Catalogue**. Choose the catalog from the pick list at the top of Catalogue.
 
 **Check for updates** downloads one public `fusion-index-v3.json` file. The controller compares installed versions with the latest verified mirrored versions. Select eligible updates and choose **Update selected plugins**, or install a mirrored release from its catalog card. Each operation runs one plugin at a time and verifies the ZIP's SHA-256 and folder before WordPress installs it. New installs remain inactive until activated. An interrupted batch can be resumed.
 

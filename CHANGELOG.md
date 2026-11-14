@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1 - 2026-11-14
+
+- Order the Plugins submenu as Techn Plugins, AlphaSys Plugins, Fusion Plugins and Other Plugins.
+- Keep WordPress's Add Plugin, Plugin File Editor and other entries after those four.
+
 ## 0.4.0 - 2026-11-14
 
 - Show cached WordPress update notices for catalog plugins without a mirrored update, with a link to the Plugins screen.
