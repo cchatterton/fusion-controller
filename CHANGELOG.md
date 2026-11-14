@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 - 2026-11-14
+
+- Remove the redundant Manual checks only label from the controller status line.
+
 ## 0.3.0 - 2026-11-14
 
 - Include Fusion Plugins in the Fusion 26 catalogue and its own update flow.

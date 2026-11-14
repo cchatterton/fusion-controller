@@ -47,7 +47,7 @@ function fpl_render_admin(): void {
     echo '<div class="wrap fpl-wrap"><h1>Fusion Plugins</h1><div id="fpl-view">';
     if (is_array($notice)) { echo '<div class="notice ' . (!empty($notice['error']) ? 'notice-error' : 'notice-success') . ' is-dismissible"><p>' . esc_html($notice['message'] ?? '') . '</p></div>'; }
     echo '<header class="fpl-header"><span class="fpl-version">v' . esc_html(FPL_VERSION) . '</span><p class="fpl-eyebrow">Fusion ' . esc_html($year) . '</p><h2>One considered choice for every job.</h2><p>Curated plugins, ready from the Fusion mirror.</p><div class="fpl-header-bottom"><span>' . esc_html($installed_count) . ' installed · ' . esc_html($updates) . ' updates available</span><button type="button" class="button fpl-primary" data-fpl-check>Check for updates</button></div></header>';
-    echo '<div class="fpl-status"><span>' . esc_html(fpl_last_check()) . '</span><span>Manual checks only</span></div>';
+    echo '<div class="fpl-status"><span>' . esc_html(fpl_last_check()) . '</span></div>';
     echo '<nav class="nav-tab-wrapper" aria-label="Fusion Plugins">';
     foreach (['installed'=>'Updates available','catalogue'=>'Catalogue'] as $key=>$label) { echo '<a class="nav-tab ' . ($key === $tab ? 'nav-tab-active' : '') . '" href="' . esc_url(fpl_admin_url($key)) . '">' . esc_html($label) . '</a>'; }
     echo '</nav><main class="fpl-main">';
