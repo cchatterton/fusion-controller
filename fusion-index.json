@@ -22,17 +22,6 @@
         }
       }
     },
-    "font-awesome": {
-      "latest": "5.2.1",
-      "versions": {
-        "5.2.1": {
-          "requires": "5.8",
-          "requires_php": "7.4",
-          "sha256": "56869e831d2b71f587a8148a32c5c3dea8e12b6c8c09cc238b49bce085a20a8c",
-          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-font-awesome-v5.2.1/font-awesome-5.2.1.zip"
-        }
-      }
-    },
     "fusion-plugins": {
       "latest": "0.3.2",
       "versions": {
@@ -56,17 +45,6 @@
         }
       }
     },
-    "query-monitor": {
-      "latest": "4.1.1",
-      "versions": {
-        "4.1.1": {
-          "requires": "6.3",
-          "requires_php": "7.4",
-          "sha256": "d62c6ddb98479df7ac5cd8d111de6f967565aa149c54688fa5482dd3edc8d788",
-          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-query-monitor-v4.1.1/query-monitor-4.1.1.zip"
-        }
-      }
-    },
     "redirection": {
       "latest": "5.10.1",
       "versions": {
@@ -75,17 +53,6 @@
           "requires_php": "7.4",
           "sha256": "f68a4be447ecba00c64e8a39d7517807ed49cc18e77b7a364c20cb31848235b7",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-redirection-v5.10.1/redirection-5.10.1.zip"
-        }
-      }
-    },
-    "search-regex": {
-      "latest": "3.5.1",
-      "versions": {
-        "3.5.1": {
-          "requires": "6.6",
-          "requires_php": "7.4",
-          "sha256": "d1dc4793dc5e01dd0cf1d620ff93ec0d2e341f0a772d075be8edcad04492cde2",
-          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-search-regex-v3.5.1/search-regex-3.5.1.zip"
         }
       }
     },

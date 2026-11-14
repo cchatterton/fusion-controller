@@ -28,7 +28,7 @@ class WP_Error { public $code; public $message; public function __construct(stri
 function is_wp_error($value) { return $value instanceof WP_Error; }
 require dirname(__DIR__) . '/fusion-plugins/fusion-plugins.php';
 
-$mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index.json'), true);
+$mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index-v2.json'), true);
 $validated = fpl_validate_mirror($mirror);
 if (is_wp_error($validated) || count($validated['packages']) !== 14) { throw new RuntimeException('The published mirror index did not validate.'); }
 $GLOBALS['stub_options']['fpl_mirror'] = $validated;

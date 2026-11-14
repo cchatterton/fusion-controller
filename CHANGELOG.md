@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.3 - 2026-11-14
+
+- Give the expanded Fusion 26 catalogue a separate index so earlier controllers can still check for and install their own updates.
+
 ## 0.3.2 - 2026-11-14
 
 - Add eight plugins to Fusion 26, including official Gravity Forms add-on identities.
