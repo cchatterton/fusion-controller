@@ -34,7 +34,7 @@
       }
     },
     "fusion-plugins": {
-      "latest": "0.3.1",
+      "latest": "0.3.2",
       "versions": {
         "0.3.0": {
           "requires": "6.5",
@@ -47,6 +47,12 @@
           "requires_php": "7.4",
           "sha256": "d723992bd9ee38a6fc7366aa20d5ec52abb636acbee03fb62b65dd0a2dfd96a8",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/v0.3.1/fusion-plugins.zip"
+        },
+        "0.3.2": {
+          "requires": "6.5",
+          "requires_php": "7.4",
+          "sha256": "86b9d3714578a782fcf6f235346635b57d4d7c929ff27bd73665214a70967404",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/v0.3.2/fusion-plugins.zip"
         }
       }
     },
