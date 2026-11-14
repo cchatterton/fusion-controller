@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.2 - 2026-11-14
+
+- Add eight plugins to Fusion 26, including official Gravity Forms add-on identities.
+- Mirror the three new WordPress.org plugins: Font Awesome, Query Monitor and Search Regex.
+
 ## 0.3.1 - 2026-11-14
 
 - Remove the redundant Manual checks only label from the controller status line.

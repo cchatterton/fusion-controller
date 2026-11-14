@@ -35,11 +35,16 @@ def archive(names):
 class MirrorTests(unittest.TestCase):
     def test_current_catalog_has_unique_roles_and_expected_plugins(self):
         catalog = json.loads((sync.ROOT / "fusion-plugins/catalogs/26.json").read_text())
-        self.assertEqual(17, len(catalog["plugins"]))
-        self.assertEqual(17, len({entry["role"] for entry in catalog["plugins"]}))
+        self.assertEqual(25, len(catalog["plugins"]))
+        self.assertEqual(25, len({entry["role"] for entry in catalog["plugins"]}))
         self.assertEqual("cms-tree-page-view", next(entry["slug"] for entry in catalog["plugins"] if entry["role"] == "Page tree"))
-        self.assertEqual(11, len(sync.selected_plugins("", "", False)))
+        self.assertEqual(14, len(sync.selected_plugins("", "", False)))
         self.assertEqual("github", sync.selected_plugins("", "fusion-plugins", False)["fusion-plugins"]["source"])
+        entries = {entry["slug"]: entry for entry in catalog["plugins"] if "slug" in entry}
+        for slug in ("font-awesome", "query-monitor", "search-regex"):
+            self.assertEqual("wordpress.org", entries[slug]["source"])
+        for slug in ("gravityformsadvancedpostcreation", "gravityformssalesforce", "gravityformsstripe", "gravityformssurvey", "gravityformswebhooks"):
+            self.assertEqual("vendor", entries[slug]["source"])
 
     def test_download_rejects_other_plugin_folder(self):
         with tempfile.TemporaryDirectory() as directory:

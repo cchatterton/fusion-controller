@@ -56,6 +56,16 @@
       "requires_php": "7.0"
     },
     {
+      "id": "font-awesome",
+      "name": "Font Awesome",
+      "role": "Icons",
+      "source": "wordpress.org",
+      "slug": "font-awesome",
+      "description": "Add Font Awesome icons to pages, menus and other site content.",
+      "requires": "5.8",
+      "requires_php": "7.4"
+    },
+    {
       "id": "gravityforms",
       "name": "Gravity Forms",
       "role": "Forms",
@@ -63,11 +73,61 @@
       "description": "Create forms and manage submissions."
     },
     {
+      "id": "gravityformsadvancedpostcreation",
+      "name": "Gravity Forms Advanced Post Creation Add-On",
+      "role": "Form post creation",
+      "source": "vendor",
+      "slug": "gravityformsadvancedpostcreation",
+      "description": "Create WordPress posts and custom content from Gravity Forms submissions. Requires Gravity Forms."
+    },
+    {
+      "id": "gravityformssalesforce",
+      "name": "Gravity Forms Salesforce Add-On",
+      "role": "Salesforce integration",
+      "source": "vendor",
+      "slug": "gravityformssalesforce",
+      "description": "Send Gravity Forms entries to Salesforce. Requires Gravity Forms."
+    },
+    {
+      "id": "gravityformsstripe",
+      "name": "Gravity Forms Stripe Add-On",
+      "role": "Form payments",
+      "source": "vendor",
+      "slug": "gravityformsstripe",
+      "description": "Accept Stripe payments through Gravity Forms. Requires Gravity Forms."
+    },
+    {
+      "id": "gravityformssurvey",
+      "name": "Gravity Forms Survey Add-On",
+      "role": "Form surveys",
+      "source": "vendor",
+      "slug": "gravityformssurvey",
+      "description": "Build surveys and view response results in Gravity Forms. Requires Gravity Forms."
+    },
+    {
+      "id": "gravityformswebhooks",
+      "name": "Gravity Forms Webhooks Add-On",
+      "role": "Form webhooks",
+      "source": "vendor",
+      "slug": "gravityformswebhooks",
+      "description": "Send Gravity Forms submission data to external services with webhooks. Requires Gravity Forms."
+    },
+    {
       "id": "independent-analytics-pro",
       "name": "Independent Analytics Pro",
       "role": "Analytics",
       "source": "vendor",
       "description": "View site analytics and reporting inside WordPress."
+    },
+    {
+      "id": "query-monitor",
+      "name": "Query Monitor",
+      "role": "Diagnostics",
+      "source": "wordpress.org",
+      "slug": "query-monitor",
+      "description": "Inspect database queries, PHP errors and other WordPress debugging data.",
+      "requires": "6.3",
+      "requires_php": "7.4"
     },
     {
       "id": "redirection",
@@ -85,6 +145,16 @@
       "role": "Search",
       "source": "vendor",
       "description": "Improve site search with premium indexing and search controls."
+    },
+    {
+      "id": "search-regex",
+      "name": "Search Regex",
+      "role": "Search and replace",
+      "source": "wordpress.org",
+      "slug": "search-regex",
+      "description": "Search and replace WordPress content and data with regular expressions.",
+      "requires": "6.6",
+      "requires_php": "7.4"
     },
     {
       "id": "smtp2go",

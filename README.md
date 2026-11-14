@@ -24,6 +24,8 @@ The curated decision is which plugin fills each function. The latest verified mi
 
 Premium plugins need an authorised vendor adapter and a verified package identity before they can enter the mirror. Catalog membership does not grant redistribution rights.
 
+Fusion 26 also lists the official Gravity Forms Advanced Post Creation, Salesforce, Stripe, Survey and Webhooks add-ons. Their official slugs are recorded so installed copies can be identified. They remain licensed entries until an authorised package source and private distribution path are configured. Do not publish their ZIPs as public GitHub release assets. Store any vendor credential in GitHub Actions secrets, and provide client sites with authenticated access to the private package store.
+
 ## Release
 
 Run `bash scripts/build-plugin-zip.sh`. The root `fusion-plugins.zip` contains only the installable plugin directory. Plugin header, version constant, readme stable tag, changelog, tag and GitHub release should match. WordPress 6.5+ and PHP 7.4+ are declared minimums; runtime validation on those versions is required before production deployment.

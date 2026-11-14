@@ -30,14 +30,14 @@ require dirname(__DIR__) . '/fusion-plugins/fusion-plugins.php';
 
 $mirror = json_decode(file_get_contents(dirname(__DIR__) . '/fusion-index.json'), true);
 $validated = fpl_validate_mirror($mirror);
-if (is_wp_error($validated) || count($validated['packages']) !== 11) { throw new RuntimeException('The published mirror index did not validate.'); }
+if (is_wp_error($validated) || count($validated['packages']) !== 14) { throw new RuntimeException('The published mirror index did not validate.'); }
 $GLOBALS['stub_options']['fpl_mirror'] = $validated;
 
 $_GET['tab'] = 'catalogue';
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-foreach (['Fusion Plugins', 'Updates available', 'Catalogue', 'Check for updates', 'CMS Tree Page View', 'Advanced Custom Fields PRO', 'fpl-catalog'] as $text) {
+foreach (['Fusion Plugins', 'Updates available', 'Catalogue', 'Check for updates', 'CMS Tree Page View', 'Advanced Custom Fields PRO', 'Font Awesome', 'Gravity Forms Stripe Add-On', 'Query Monitor', 'Search Regex', 'fpl-catalog'] as $text) {
     if (strpos($html, $text) === false) { throw new RuntimeException('Missing admin UI text: ' . $text); }
 }
 if (strpos($html, 'id="fpl-view"') === false || strpos($html, '<dialog id="fpl-dialog"') === false || strpos($html, 'aria-labelledby="fpl-dialog-title"') === false || strpos($html, 'id="fpl-feedback"') !== false) {
@@ -45,7 +45,7 @@ if (strpos($html, 'id="fpl-view"') === false || strpos($html, '<dialog id="fpl-d
 }
 $view = fpl_dispatch('view', ['tab'=>'catalogue']);
 if (is_wp_error($view) || strpos($view['html'], 'id="fpl-view"') === false) { throw new RuntimeException('The catalog view could not refresh inside the modal flow.'); }
-if (substr_count($html, 'class="fpl-card"') !== 17 || substr_count($html, 'class="nav-tab ') !== 2 || strpos($html, '>Settings</a>') !== false || strpos($html, '>Catalogs</a>') !== false || strpos($html, 'Techn /') !== false || strpos($html, 'AlphaSys') !== false) {
+if (substr_count($html, 'class="fpl-card"') !== 25 || substr_count($html, 'class="nav-tab ') !== 2 || strpos($html, '>Settings</a>') !== false || strpos($html, '>Catalogs</a>') !== false || strpos($html, 'Techn /') !== false || strpos($html, 'AlphaSys') !== false) {
     throw new RuntimeException('Unexpected catalog or branding output.');
 }
 $_GET['tab'] = 'installed';
@@ -66,7 +66,8 @@ $GLOBALS['stub_plugins'] = ['fusion-plugins/fusion-plugins.php'=>['Name'=>'Fusio
 ob_start();
 fpl_render_admin();
 $html = ob_get_clean();
-if (strpos($html, 'name="fpl-selected" value="fusion-plugins"') === false || strpos($html, '/releases/tag/v0.3.0') === false) {
+$self_version = $validated['packages']['fusion-plugins']['latest'];
+if (strpos($html, 'name="fpl-selected" value="fusion-plugins"') === false || strpos($html, '/releases/tag/v' . $self_version) === false) {
     throw new RuntimeException('The Fusion controller update was not shown.');
 }
 echo "Admin smoke test passed.\n";
