@@ -87,24 +87,36 @@
       }
     },
     "smtp2go": {
-      "latest": "1.17.1",
+      "latest": "1.18.0",
       "versions": {
         "1.17.1": {
           "requires": "6.2",
           "requires_php": "7.4",
           "sha256": "a13023d855e2c3cb25582e0108f1cc0e14c5af1f470e3f31ed0ff5ec3f4a7dcf",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-smtp2go-v1.17.1/smtp2go-1.17.1.zip"
+        },
+        "1.18.0": {
+          "requires": "6.2",
+          "requires_php": "7.4",
+          "sha256": "0e4d0350029355f6f316464acef2223e883a701fd7012c32aee1d70cc7a1a0af",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-smtp2go-v1.18.0/smtp2go-1.18.0.zip"
         }
       }
     },
     "stream": {
-      "latest": "4.5.0",
+      "latest": "4.5.1",
       "versions": {
         "4.5.0": {
           "requires": "4.6",
           "requires_php": "7.4",
           "sha256": "d52fea8532545bc0b96782dad18c4c4e192e1c74cdc994e88459e2eae502091f",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-stream-v4.5.0/stream-4.5.0.zip"
+        },
+        "4.5.1": {
+          "requires": "4.6",
+          "requires_php": "7.4",
+          "sha256": "cd15a05cc74c4ef11bb3df6544bf8cfa3432827662b43475de3b8649ce5d422e",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-stream-v4.5.1/stream-4.5.1.zip"
         }
       }
     },
