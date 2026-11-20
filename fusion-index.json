@@ -12,13 +12,19 @@
       }
     },
     "disable-comments": {
-      "latest": "2.9.1",
+      "latest": "2.9.2",
       "versions": {
         "2.9.1": {
           "requires": "5.0",
           "requires_php": "7.0",
           "sha256": "bc9e476f53921404b35207f1661269d57f16978854afb8b7eb403cdcf7193102",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-disable-comments-v2.9.1/disable-comments-2.9.1.zip"
+        },
+        "2.9.2": {
+          "requires": "5.0",
+          "requires_php": "7.0",
+          "sha256": "5b5c3697d9f217388f762fede0acf7053e72bec294801656bd6dcf67b7359b9e",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-disable-comments-v2.9.2/disable-comments-2.9.2.zip"
         }
       }
     },
