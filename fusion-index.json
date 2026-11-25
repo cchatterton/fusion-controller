@@ -1,13 +1,19 @@
 {
   "packages": {
     "cms-tree-page-view": {
-      "latest": "2.7.0",
+      "latest": "2.7.1",
       "versions": {
         "2.7.0": {
           "requires": "6.6",
           "requires_php": "7.4",
           "sha256": "de5b4535eb915dd8f2aed64384a31bd129b86f3543233185b2bdb9099ed3ac0f",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-cms-tree-page-view-v2.7.0/cms-tree-page-view-2.7.0.zip"
+        },
+        "2.7.1": {
+          "requires": "6.6",
+          "requires_php": "7.4",
+          "sha256": "e13c749e29ddf116fd275c187329adbb92cd18a668c2aec304d0dfb20b08e9ab",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-cms-tree-page-view-v2.7.1/cms-tree-page-view-2.7.1.zip"
         }
       }
     },
@@ -170,13 +176,19 @@
       }
     },
     "wpide": {
-      "latest": "3.6.5",
+      "latest": "3.6.6",
       "versions": {
         "3.6.5": {
           "requires": "5.9",
           "requires_php": "7.4.0",
           "sha256": "674b851bb1f8843022d9b881584bde48a8bbe324edc855185f31b50a3710fa07",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-wpide-v3.6.5/wpide-3.6.5.zip"
+        },
+        "3.6.6": {
+          "requires": "5.9",
+          "requires_php": "7.4.0",
+          "sha256": "c8618c98d9acb9a5bc37ba7213afabbabf8eabd893c1a9ed148e0c9cf0f95dd1",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-wpide-v3.6.6/wpide-3.6.6.zip"
         }
       }
     }
