@@ -1,7 +1,7 @@
 {
   "packages": {
     "cms-tree-page-view": {
-      "latest": "2.7.1",
+      "latest": "2.7.3",
       "versions": {
         "2.7.0": {
           "requires": "6.6",
@@ -14,6 +14,12 @@
           "requires_php": "7.4",
           "sha256": "e13c749e29ddf116fd275c187329adbb92cd18a668c2aec304d0dfb20b08e9ab",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-cms-tree-page-view-v2.7.1/cms-tree-page-view-2.7.1.zip"
+        },
+        "2.7.3": {
+          "requires": "6.6",
+          "requires_php": "7.4",
+          "sha256": "ae33cf807f48e9f5101c540a81198d8161413a8282afc88d0bea08ec9320f0f1",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-cms-tree-page-view-v2.7.3/cms-tree-page-view-2.7.3.zip"
         }
       }
     },
