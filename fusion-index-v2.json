@@ -105,13 +105,19 @@
       }
     },
     "query-monitor": {
-      "latest": "4.1.1",
+      "latest": "4.1.2",
       "versions": {
         "4.1.1": {
           "requires": "6.3",
           "requires_php": "7.4",
           "sha256": "d62c6ddb98479df7ac5cd8d111de6f967565aa149c54688fa5482dd3edc8d788",
           "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-query-monitor-v4.1.1/query-monitor-4.1.1.zip"
+        },
+        "4.1.2": {
+          "requires": "6.3",
+          "requires_php": "7.4",
+          "sha256": "012ffdf607618a90ae7b344e5cd20c54d48e8d200790763c948af50d094c9440",
+          "url": "https://github.com/cchatterton/fusion-controller/releases/download/mirror-query-monitor-v4.1.2/query-monitor-4.1.2.zip"
         }
       }
     },
